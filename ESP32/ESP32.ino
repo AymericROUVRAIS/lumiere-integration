@@ -48,6 +48,21 @@ bool isDigits(String value) {
   return true;
 }
 
+void manageBrightness(String command) {
+  String inputBrightness = command.substring(5); // 4 = len(BGNS )
+
+  if (!isDigits(inputBrightness)) {
+    SerialBT.println("Usage : BGNS value");
+    return;
+  }
+
+  int brightnessValue = inputBrightness.toInt();
+
+  FastLED.setBrightness(brightnessValue);
+  FastLED.show();
+
+}
+
 void handleAdd(String command) {
   String timeValue = command.substring(4);
 
@@ -79,9 +94,9 @@ void handleAdd(String command) {
 
   scheduleEnabled = true;
 
-  lastTriggeredDay = -1;
+  lastTriggeredDay   = -1;
   lastTriggeredMonth = -1;
-  lastTriggeredYear = -1;
+  lastTriggeredYear  = -1;
 
   SerialBT.printf("Schedule added: %02d:%02d\n", hour, minute);
 }
@@ -104,17 +119,11 @@ void handleCommand(String command) {
     SerialBT.println("RED, GREEN, BLUE, ORANGE, PURPLE, WHITE");
     SerialBT.println("OFF");
   }
-
-  else if (command.startsWith("ADD ")) {
-    handleAdd(command);
-  }
-
+  else if (command.startsWith("ADD ")) handleAdd(command);
   else if (command == "REMOVE") {
     scheduleEnabled = false;
     SerialBT.println("Schedule removed");
-  }
-
-  else if (command == "STATUS") {
+  } else if (command == "STATUS") {
     DateTime now = rtc.now();
 
     SerialBT.printf(
