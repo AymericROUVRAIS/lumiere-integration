@@ -151,7 +151,8 @@ void handleCommand(String command) {
   else if (command == "GREEN")  setColor(CRGB::Green);
   else if (command == "BLUE")   setColor(CRGB::Blue);
   else if (command == "WHITE")  setColor(CRGB::White);
-  else if (command == "ORANGE") setColor(CRGB(255*DEFT_BRIGHTNESS, 243*DEFT_BRIGHTNESS, 134*DEFT_BRIGHTNESS));
+  else if (command == "ORANGE") setColor(CRGB::LightYellow);
+  else if (command == "YELLOW") setColor(CRGB::Yellow);
   else if (command == "PURPLE") setColor(CRGB::Purple);
   else if (command == "OFF")    ledsOff();
 
