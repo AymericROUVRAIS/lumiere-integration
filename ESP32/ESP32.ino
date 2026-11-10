@@ -156,6 +156,19 @@ void handleCommand(String command) {
   else if (command == "PURPLE") setColor(CRGB::Purple);
   else if (command == "OFF")    ledsOff();
 
+  else if (command.startsWith("BGNS ")) manageBrightness(command);
+  else if (command == "RISE") {
+    SerialBT.println("Starting...");
+
+    setColor(CRGB::White);
+    for (int brightness=1; brightness<254; brightness+=1){
+      FastLED.setBrightness(brightness);
+      FastLED.show();
+      delay(10);
+    }
+    SerialBT.println("Full brightness");
+  }
+
   else {
     SerialBT.println("Unknown command");
   }
@@ -178,9 +191,10 @@ void checkSchedule() {
       // Activate sun rise effect
       FastLED.setBrightness(10);
       setColor(CRGB::White);
-      for (brightness=10;brightness<255; brightness+=20){
+      for (brightness=10;brightness<254; brightness+=1){
         FastLED.setBrightness(brightness);
         FastLED.show();
+        delay(5);
       }
 
       // lastTriggeredDay = now.day();
